@@ -194,4 +194,10 @@ atomic_int!(AtomicIsize, isize);
 atomic_int!(AtomicU64, u64);
 
 #[cfg(target_pointer_width = "64")]
+atomic_int!(AtomicU128, u128);
+
+#[cfg(target_pointer_width = "64")]
 atomic_int!(AtomicI64, i64);
+
+#[cfg(target_pointer_width = "64")]
+atomic_int!(AtomicI128, i128);

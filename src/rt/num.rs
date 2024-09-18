@@ -3,21 +3,21 @@
 /// Used by `Atomic` to store values.
 pub(crate) trait Numeric: Sized + Copy + PartialEq {
     /// Convert a value into `u64` representation
-    fn into_u64(self) -> u64;
+    fn into_u128(self) -> u128;
 
     /// Convert a `u64` representation into the value
-    fn from_u64(src: u64) -> Self;
+    fn from_u128(src: u128) -> Self;
 }
 
 macro_rules! impl_num {
     ( $($t:ty),* ) => {
         $(
             impl Numeric for $t {
-                fn into_u64(self) -> u64 {
-                    self as u64
+                fn into_u128(self) -> u128 {
+                    self as u128
                 }
 
-                fn from_u64(src: u64) -> $t {
+                fn from_u128(src: u128) -> $t {
                     src as $t
                 }
             }
@@ -25,20 +25,20 @@ macro_rules! impl_num {
     };
 }
 
-impl_num!(u8, u16, u32, u64, usize, i8, i16, i32, i64, isize);
+impl_num!(u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize);
 
 impl<T> Numeric for *mut T {
-    fn into_u64(self) -> u64 {
-        self as u64
+    fn into_u128(self) -> u128 {
+        self as u128
     }
 
-    fn from_u64(src: u64) -> *mut T {
+    fn from_u128(src: u128) -> *mut T {
         src as *mut T
     }
 }
 
 impl Numeric for bool {
-    fn into_u64(self) -> u64 {
+    fn into_u128(self) -> u128 {
         if self {
             1
         } else {
@@ -46,7 +46,7 @@ impl Numeric for bool {
         }
     }
 
-    fn from_u64(src: u64) -> bool {
+    fn from_u128(src: u128) -> bool {
         src != 0
     }
 }
